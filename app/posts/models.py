@@ -1,9 +1,11 @@
 from django.db import models
 
+from members.models import User
+
 
 class Post(models.Model):
     author = models.ForeignKey(
-        'User',
+        User,
         on_delete=models.CASCADE,
     )
     photo = models.ImageField(upload_to='post')
@@ -15,7 +17,7 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
     author = models.ForeignKey(
-        'User',
+        'members.User',
         on_delete=models.CASCADE,
     )
     content = models.TextField()
@@ -30,3 +32,5 @@ class HashTag(models.Model):
 
     def __str__(self):
         return self.name
+
+
