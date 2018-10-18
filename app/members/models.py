@@ -2,14 +2,14 @@ from django.db import models
 
 
 class User(models.Model):
-    username = models.CharField('아이디', max_length=50)
+    username = models.CharField('아이디', max_length=50, unique=True,)
     img_profile = models.ImageField(
         '프로필 이미지',
         upload_to='user',
-        unique=True,
+        blank=True
     )
-    name = models.CharField('이름', max_length=30)
-    site = models.URLField('사이트', max_length=150)
+    name = models.CharField('이름', max_length=30, blank=True)
+    site = models.URLField('사이트', max_length=150, blank=True)
     introduce = models.TextField('소개', blank=True)
 
     def __str__(self):
