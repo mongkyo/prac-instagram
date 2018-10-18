@@ -6,6 +6,7 @@ class User(models.Model):
     img_profile = models.ImageField(
         '프로필 이미지',
         upload_to='user',
+        unique=True,
     )
     name = models.CharField('이름', max_length=30)
     site = models.URLField('사이트', max_length=150)
