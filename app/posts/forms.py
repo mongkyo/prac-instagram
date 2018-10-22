@@ -17,3 +17,5 @@ class PostCreateForm(forms.Form):
             }
         ),
     )
+
+
