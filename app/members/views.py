@@ -41,7 +41,6 @@ def signup_view(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
-
         if User.objects.filter(username=username).exist():
             context['error'] = f'사용자명 ({username})은 이미 사용중입니다.'
         if password1 != password2:
