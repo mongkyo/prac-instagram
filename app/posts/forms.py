@@ -1,5 +1,7 @@
 from django import forms
 
+from .models import Post
+
 
 class PostCreateForm(forms.Form):
     photo = forms.ImageField(
@@ -18,4 +20,9 @@ class PostCreateForm(forms.Form):
         ),
     )
 
-
+    def save(self, author):
+        post = Post.objects.create(
+            photo=self.cleaned_data['photo'],
+            author=author,
+        )
+        return post

@@ -23,6 +23,11 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+
+# login_required 데코레이터에 의해 이동할 URL
+LOGIN_URL = 'members:login'
+
+
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
@@ -50,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
