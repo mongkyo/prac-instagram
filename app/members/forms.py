@@ -96,6 +96,7 @@ class SignupForm(forms.Form):
             raise ValueError('데이터 유효성 검증에 실패했습니다')
         user = User.objects.create_user(
             username=self.cleaned_data['username'],
-            password=self.cleaned_data{'password1'},
+            password=self.cleaned_data['password1'],
         )
         return user
+
