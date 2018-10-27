@@ -44,8 +44,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+#Auth
+AUTH_USER_MODEL = 'members.User'
 
+# Application definition
 INSTALLED_APPS = [
     'members.apps.MembersConfig',
     'posts.apps.PostsConfig',

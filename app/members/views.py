@@ -1,13 +1,13 @@
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from .forms import LoginForm, SignupForm
+from django.contrib.auth import authenticate, login, logout
 
 
 def login_view(request):
-    context = {}
+    context={}
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -29,7 +29,6 @@ def logout_view(request):
 
 
 def signup_view(request):
-
     context = {}
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -38,7 +37,7 @@ def signup_view(request):
             login(request, user)
             return redirect('posts:post-list')
     else:
-        form=SignupForm()
+        form = SignupForm()
 
-    context['form']=form
+    context['form'] = form
     return render(request, 'members/signup.html', context)
