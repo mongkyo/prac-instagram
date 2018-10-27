@@ -92,3 +92,16 @@ class SignupForm(forms.Form):
             password=self.cleaned_data['password1'],
         )
         return user
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'last_name',
+            'first_name',
+            'img_profile',
+            'site',
+            'introduce',
+        ]

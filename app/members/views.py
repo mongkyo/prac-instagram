@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -41,3 +42,17 @@ def signup_view(request):
 
     context['form'] = form
     return render(request, 'members/signup.html', context)
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+
+    form = UserProfileForm(instance=request.user)
+    context = {
+        'form': form,
+    }
+    return render(request, 'members/profile.html', context)
