@@ -95,3 +95,4 @@ def post_like_toggle(request, post_pk):
         post.like_toggle(request.user)
         url = reverse('posts:post-list')
         return redirect(url + f'#post-{post_pk}')
+
