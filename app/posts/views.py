@@ -1,7 +1,8 @@
 import re
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from .models import Post, Comment, HashTag
 from .forms import CommentForm, PostForm
@@ -88,3 +89,9 @@ def tag_search(request):
     return redirect('tag-post-list', substituted_keyword)
 
 
+def post_like_toggle(request, post_pk):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=post_pk)
+        post.like_toggle(request.user)
+        url = reverse('posts:post-list')
+        return redirect(url + f'#post-{post_pk}')
