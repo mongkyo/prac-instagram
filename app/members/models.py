@@ -24,3 +24,13 @@ class User(AbstractUser):
         if self.img_profile:
             return self.img_profile.url
         return static('images/blank_user.png')
+
+    def like_post_toggle(self, post):
+        # if self.postlike_set.filter(post=post).exists():
+        #     self.postlike_set.filter(post=post).delete()
+        # else:
+        #     self.postlike_set.create(post=post)
+
+        postlike, postlike_create = self.postlike_set.get_or_create(post=post)
+        if not postlike_create:
+            postlike.delete()
