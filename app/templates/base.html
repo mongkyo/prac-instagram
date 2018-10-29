@@ -11,22 +11,28 @@
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
 	<title>Instagram</title>
-    <style>
-            .square {
+	<style>
+		.square {
 
-             }
-            .square:before {
-                content: '';
-                padding: 50% 0;
-                display: inline-block;
-            }
-            .square > .thumbnail {
-                display: block;
-                width: 100%;
-                background-size: cover;
-                background-position: center center;
-            }
-    </style>
+		}
+		.square:before {
+			content: '';
+			padding: 50% 0;
+			display: inline-block;
+		}
+		.square > .thumbnail {
+			display: block;
+			width: 100%;
+			background-size: cover;
+			background-position: center center;
+		}
+        .messages-container {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+        }
+	</style>
 </head>
 <body>
 	<div id="wrap">
@@ -36,12 +42,16 @@
 			<a href="{% url 'posts:post-list' %}" class="navbar-brand">Instagram</a>
 			<!--검색 form-->
 			<form action="{% url 'posts:tag-search' %}" class="form-inline ml-md-auto">
-				<input type="text" name="search_keyword" class="form-control" placeholder="검색">
+				<input type="text"
+				       name="search_keyword"
+				       class="form-control"
+				       placeholder="검색">
 			</form>
 			<!--우측 3개 메뉴 버튼-->
 			<ul class="navbar-nav ml-md-auto">
 				<li class="nav-item mr-sm-1">
-					<a href="{% url 'posts:post-create' %}" class="btn btn-outline-primary">+ Add Post</a>
+					<a href="{% url 'posts:post-create' %}"
+					   class="btn btn-outline-primary">+ Add Post</a>
 				</li>
 				<li class="nav-item mr-sm-1">
 					<a href="#" class="btn btn-outline-secondary">Explore</a>
@@ -52,35 +62,49 @@
 				<li class="nav-item mr-sm-1">
 					<a href="{% url 'members:profile' %}" class="btn btn-outline-secondary">
 						Profile
+						<!-- 로그인 한 경우에만 username표시 -->
 						{% if user.is_authenticated %}
-						({{ user.username }}
+							({{ user.username }})
 						{% endif %}
 					</a>
 				</li>
+				<!-- 로그인 되어있으면 로그아웃버튼, 아니면 로그인/회원가입 버튼 표시 -->
 				{% if user.is_authenticated %}
 				<li class="nav-item">
-					<form action="{% url 'members:logout' %}" method="POST">
+					<form action="{% url 'members:logout' %}"
+					      method="POST">
 						{% csrf_token %}
 						<button type="submit"
-								class="btn btn-outline-secondary">Logout</button>
+					          class="btn btn-outline-secondary">Logout</button>
 					</form>
 				</li>
 				{% else %}
-				<li class="nav-item">
-					<a href="{% url 'members:login' %}" class="btn btn-outline-secondary">Login</a>
+				<li class="nav-item mr-sm-1">
+					<a href="{% url 'members:login' %}"
+					   class="btn btn-outline-secondary">Login</a>
 				</li>
 				<li class="nav-item">
-					<a href="{% url 'members:signup' %}" class="btn btn-outline-secondary">Signup</a>
+					<a href="{% url 'members:signup' %}"
+					   class="btn btn-outline-secondary">Signup</a>
 				</li>
 				{% endif %}
 			</ul>
 
 		</nav>
-    <div class="container-fluid mt-3">
-        {% block content %}
-        {% endblock %}
-    </div>
-    </div
-    >
+
+		<div class="container-fluid mt-3">
+			{% block content %}
+			{% endblock %}
+		</div>
+        {% if messages %}
+          <div class="messages-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+	</div>
 </body>
 </html>

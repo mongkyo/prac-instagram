@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls')),
     path('members/', include('members.urls')),
-    path('explore/tags/<str:tag_name>', tag_post_list, name='tag-post-list'),
+    path('explore/tags/<str:tag_name>/', tag_post_list, name='tag-post-list'),
 ]
 # MEDIA_URL로 시작하는 URL은 static()내의 serve() 함수를 통해 처리
 # MEDIA_ROOT기준으로 파일을 검색함
