@@ -25,12 +25,17 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-secrets = json.load(open(os.path.join(SECRET_DIR, 'base.json'))).read()
+secrets = json.load(open(os.path.join(SECRET_DIR, 'base.json')))
 FACEBOOK_APP_ID = secrets['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET = secrets['FACEBOOK_APP_SECRET']
 # login_required 데코레이터에 의해 이동할 URL
 LOGIN_URL = 'members:login'
 
+# authenticate()함수 호출 시 사용할 백앤드 목록
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'members.backends.FacebookBackend',
+]
 
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
