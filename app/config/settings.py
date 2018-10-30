@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import json
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +25,9 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
-
+secrets = json.load(open(os.path.join(SECRET_DIR, 'base.json'))).read()
+FACEBOOK_APP_ID = secrets['FACEBOOK_APP_ID']
+FACEBOOK_APP_SECRET = secrets['FACEBOOK_APP_SECRET']
 # login_required 데코레이터에 의해 이동할 URL
 LOGIN_URL = 'members:login'
 
@@ -39,8 +41,7 @@ STATIC_URL = '/static/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-
-SECRET_KEY = 'secrets'
+SECRET_KEY = secrets['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
