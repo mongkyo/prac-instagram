@@ -4,6 +4,7 @@ import json
 from pprint import pprint
 
 import requests
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -76,9 +77,9 @@ def facebook_login(request):
     api_me = f'{api_base}/me'
     code = request.GET.get('code')
     params = {
-        'client_id': 249955975697367,
+        'client_id': settings.FACEBOOK_APP_ID,
         'redirect_uri': 'http://localhost:8000/members/facebook-login/',
-        'client_secret': 'd2a0a4a8d439da52d2b88b65a43f6198',
+        'client_secret': settings.FACEBOOK_APP_SECRET,
         'code': code,
     }
     response = requests.get(api_get_access_token, params)
